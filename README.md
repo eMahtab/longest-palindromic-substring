@@ -14,7 +14,7 @@ Example 2:
 Input: "cbbd"
 Output: "bb"
 ```
-# Implementation : O(n^2)
+# Implementation 1 : O(n^2)
 ```java
 class Solution {
     int resultStart;
@@ -45,6 +45,39 @@ class Solution {
 }
 ```
 
+## Implementation 2 : Dynamic Programming O(n^2)
+```java
+class Solution {
+    public String longestPalindrome(String s) {
+        int n = s.length();
+        if (n == 0) 
+            return "";
+
+        boolean[][] dp = new boolean[n][n];
+        int startIndex = 0, endIndex = 1;
+        
+        for (int i = 0; i < n; i++)
+            dp[i][i] = true;
+        for (int i = 0; i < n - 1; i++) {
+            dp[i][i + 1] = (s.charAt(i) == s.charAt(i + 1));
+            if(dp[i][i + 1]) {
+               startIndex = i; endIndex = i + 2;
+            }
+        }
+        for (int len = 3; len <= n; len++) {
+            for (int i = 0, j = i + len - 1; j < n; i++, j++) {
+                dp[i][j] = (s.charAt(i) == s.charAt(j)) && dp[i + 1][j - 1];
+                if(dp[i][j]) {
+                   startIndex = i; endIndex = j+1;
+                } 
+            }
+        }
+        return s.substring(startIndex,endIndex);
+    }
+}
+```
+
 # References :
 1. https://www.youtube.com/watch?v=DK5OKKbF6GI
 2. https://www.youtube.com/watch?v=y2BD4MJqV20
+3. https://www.youtube.com/watch?v=XmSOWnL6T_I
