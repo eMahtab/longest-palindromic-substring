@@ -14,6 +14,9 @@ Example 2:
 Input: "cbbd"
 Output: "bb"
 ```
+
+#### This question is similar to https://github.com/eMahtab/palindromic-substrings
+
 # Implementation 1 : O(n^2)
 ```java
 class Solution {
